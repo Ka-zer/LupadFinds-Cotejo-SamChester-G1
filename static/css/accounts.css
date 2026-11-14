@@ -1,0 +1,56 @@
+
+/* Form Card */
+.form-card {
+    max-width: 460px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Form Heading */
+.form-card h2 {
+    margin-top: 0;
+    color: #0d3d28;
+}
+
+/* Form Labels */
+.form-card label {
+    display: block;
+    font-weight: 600;
+    margin-top: 0.8rem;
+}
+
+/* Input Fields and Select */
+.form-card input,
+.form-card select {
+    width: 100%;
+    padding: 0.55rem;
+    margin-top: 0.3rem;
+    border: 1px solid #c5d3ca;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+/* Buttons */
+.form-card .btn {
+    margin-top: 1.2rem;
+}
+
+/* Error Messages */
+.errorlist {
+    color: #c0392b;
+    list-style: none;
+    padding: 0;
+    margin: 0.3rem 0;
+    font-size: 0.9rem;
+}
+
+/* Help Text */
+.helptext {
+    display: block;
+    font-size: 0.8rem;
+    color: #6b7c72;
+    margin-top: 0.2rem;
+}
