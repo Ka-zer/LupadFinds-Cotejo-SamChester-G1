@@ -54,3 +54,13 @@
     color: #6b7c72;
     margin-top: 0.2rem;
 }
+
+.auth-page {
+  min-height: calc(100vh - 230px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.auth-page .form-card { width: 100%; margin: 0; }
+.form-card h2 { text-align: center; }
+.form-card .btn { width: 100%; }

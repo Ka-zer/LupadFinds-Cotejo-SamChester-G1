@@ -1,19 +1,31 @@
 
-/* Global Styles */
+:root {
+    --dark: #0d3d28;
+    --primary: #1e6b4a;
+    --accent: #43b88a;
+    --light: #d6eddf;
+    --bg: #f2f6f3;
+    --text: #1f2d25;
+    --muted: #6b7c72;
+}
+
+/* ---------- Global Styles ---------- */
 * {
     box-sizing: border-box;
 }
 
 body {
     margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
     font-family: "Segoe UI", Arial, sans-serif;
-    background: #f2f6f3;
-    color: #1f2d25;
+    background: var(--bg);
+    color: var(--text);
 }
 
-/* Links */
 a {
-    color: #1e6b4a;
+    color: var(--primary);
     text-decoration: none;
 }
 
@@ -21,42 +33,143 @@ a:hover {
     text-decoration: underline;
 }
 
-/* Navbar */
+/* ---------- Navbar ---------- */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #0d3d28;
-    padding: 0.8rem 1.5rem;
-}
-
-.navbar a {
-    color: #fff;
-    margin-left: 1rem;
+    background: var(--dark);
+    padding: 0 2rem;
+    height: 64px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
 /* Brand */
 .brand {
+    color: #fff;
+    font-size: 1.4rem;
     font-weight: 700;
-    font-size: 1.2rem;
-    margin-left: 0 !important;
 }
 
-/* Container */
+.brand span {
+    color: var(--accent);
+}
+
+.brand:hover {
+    text-decoration: none;
+}
+
+/* Navigation Links */
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+}
+
+.nav-links > a {
+    color: #cfe8da;
+    font-weight: 500;
+}
+
+.nav-links > a:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+/* User Profile */
+.user-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    padding: 0.3rem 0.8rem 0.3rem 0.35rem;
+    border-radius: 999px;
+    font-size: 0.9rem;
+}
+
+.avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--dark);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.role-badge {
+    background: var(--accent);
+    color: var(--dark);
+    padding: 1px 8px;
+    border-radius: 10px;
+    font-size: 0.72rem;
+    font-weight: 700;
+}
+
+/* Navbar Buttons */
+.inline-form {
+    display: inline;
+    margin: 0;
+}
+
+.btn-logout {
+    background: transparent;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 0.4rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.2s;
+}
+
+.btn-logout:hover {
+    background: #c0392b;
+    border-color: #c0392b;
+}
+
+.btn-nav {
+    background: var(--accent);
+    color: var(--dark) !important;
+    font-weight: 600;
+    padding: 0.4rem 1rem;
+    border-radius: 6px;
+}
+
+.btn-nav:hover {
+    text-decoration: none !important;
+    background: #5fcca0;
+}
+
+/* ---------- Layout ---------- */
 .container {
-    max-width: 960px;
+    width: 100%;
+    max-width: 1000px;
     margin: 2rem auto;
     padding: 0 1rem;
+    flex: 1;
 }
 
-/* Messages Container */
+/* Footer */
+.footer {
+    margin-top: auto;
+    text-align: center;
+    padding: 1rem;
+    color: var(--muted);
+    font-size: 0.85rem;
+}
+
+/* ---------- Messages ---------- */
 .messages {
-    max-width: 960px;
+    max-width: 1000px;
+    width: 100%;
     margin: 1rem auto 0;
     padding: 0 1rem;
 }
 
-/* Message Styles */
 .message {
     padding: 0.75rem 1rem;
     border-radius: 6px;
@@ -64,22 +177,25 @@ a:hover {
     border-left: 5px solid;
 }
 
-/* Success Message */
 .message.success {
-    background: #d6eddf;
-    border-color: #1e6b4a;
+    background: var(--light);
+    border-color: var(--primary);
 }
 
-/* Error Message */
 .message.error {
     background: #f8d7da;
     border-color: #c0392b;
 }
 
-/* Buttons */
+.message.info {
+    background: #dfeaf5;
+    border-color: #2e6da4;
+}
+
+/* ---------- Buttons ---------- */
 .btn {
     display: inline-block;
-    background: #1e6b4a;
+    background: var(--primary);
     color: #fff;
     border: none;
     padding: 0.6rem 1.2rem;
@@ -88,7 +204,26 @@ a:hover {
     font-size: 1rem;
 }
 
-/* Button Hover */
 .btn:hover {
     background: #17553b;
+    text-decoration: none;
+}
+
+.btn-secondary {
+    background: var(--muted);
+}
+
+/* ---------- Responsive Design ---------- */
+@media (max-width: 640px) {
+    .navbar {
+        padding: 0 1rem;
+    }
+
+    .nav-links {
+        gap: 0.6rem;
+    }
+
+    .role-badge {
+        display: none;
+    }
 }
