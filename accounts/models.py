@@ -16,5 +16,10 @@ class CustomUser(AbstractUser):
     )
     contact_number = models.CharField(max_length=20, blank=True)
 
+    def save(self, *args, **kwargs):
+        if self.is_superuser:          # superusers are always ADMIN
+            self.role = self.Role.ADMIN
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return self.username

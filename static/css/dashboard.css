@@ -22,3 +22,10 @@
 }
 .panel h3 { margin-top: 0; color: var(--dark); }
 .panel .btn { margin-right: 0.5rem; }
+
+.data-table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; }
+.data-table th, .data-table td { text-align: left; padding: 0.6rem; border-bottom: 1px solid #e1e9e3; }
+.data-table th { background: var(--dark); color: #fff; }
+
+.error-panel { text-align: center; max-width: 500px; margin: 3rem auto; }
+.error-panel h2 { color: #c0392b; }

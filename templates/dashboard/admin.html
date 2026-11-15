@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Admin Dashboard | LupadFinds{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">{% endblock %}
+
+{% block content %}
+<div class="welcome-banner">
+  <h2>Admin Dashboard</h2>
+  <p>Lost-and-found office overview &middot; {{ user.email }}</p>
+</div>
+
+<div class="card-grid">
+  <div class="stat-card"><span class="stat-value">{{ total_users }}</span><span class="stat-label">Total users</span></div>
+  <div class="stat-card"><span class="stat-value">{{ student_count }}</span><span class="stat-label">Students</span></div>
+  <div class="stat-card"><span class="stat-value">{{ staff_count }}</span><span class="stat-label">Staff</span></div>
+  <div class="stat-card"><span class="stat-value">0</span><span class="stat-label">Pending claims (coming soon)</span></div>
+</div>
+
+<div class="panel">
+  <h3>Recently joined</h3>
+  <table class="data-table">
+    <tr><th>Username</th><th>Email</th><th>Role</th></tr>
+    {% for u in recent_users %}
+      <tr><td>{{ u.username }}</td><td>{{ u.email }}</td><td>{{ u.get_role_display }}</td></tr>
+    {% endfor %}
+  </table>
+  <a class="btn" href="{% url 'admin:index' %}">Manage users</a>
+</div>
+{% endblock %}

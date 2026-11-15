@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}Dashboard | LupadFinds{% endblock %}
+{% block title %}Staff Dashboard | LupadFinds{% endblock %}
 {% block extra_css %}<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">{% endblock %}
 
 {% block content %}
 <div class="welcome-banner">
   <h2>Welcome, {{ user.first_name|default:user.username }}!</h2>
-  <p>Signed in as {{ user.get_role_display }} &middot; {{ user.email }}</p>
+  <p>Staff Dashboard &middot; {{ user.email }}</p>
 </div>
 
 <div class="card-grid">
@@ -30,6 +30,6 @@
 
 <div class="panel">
   <h3>Quick links</h3>
-  <p>Profile and report pages will appear here as we build them.</p>
+  <p>Report a lost item, report a found item, and search will appear here as we build them.</p>
 </div>
 {% endblock %}
