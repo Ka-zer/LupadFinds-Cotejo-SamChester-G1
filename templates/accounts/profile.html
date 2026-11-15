@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}My Profile | LupadFinds{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/profile.css' %}?v=1">{% endblock %}
+
+{% block content %}
+<div class="profile-card">
+
+  <div class="profile-header">
+    <div class="profile-avatar">{{ user.username|slice:":1"|upper }}</div>
+    <div>
+      <h2>{{ user.get_full_name|default:user.username }}</h2>
+      <span class="profile-role">{{ user.get_role_display }}</span>
+    </div>
+  </div>
+
+  <div class="profile-table">
+    <div class="profile-row">
+      <span class="profile-label">Username</span>
+      <span class="profile-value">{{ user.username }}</span>
+    </div>
+    <div class="profile-row">
+      <span class="profile-label">Full name</span>
+      <span class="profile-value">{{ user.get_full_name|default:"Not set" }}</span>
+    </div>
+    <div class="profile-row">
+      <span class="profile-label">School email</span>
+      <span class="profile-value">{{ user.email }}</span>
+    </div>
+    <div class="profile-row">
+      <span class="profile-label">Contact number</span>
+      <span class="profile-value">{{ user.contact_number|default:"Not set" }}</span>
+    </div>
+    <div class="profile-row">
+      <span class="profile-label">Role</span>
+      <span class="profile-value">{{ user.get_role_display }}</span>
+    </div>
+    <div class="profile-row">
+      <span class="profile-label">Last login</span>
+      <span class="profile-value">{{ user.last_login|date:"M d, Y" }}</span>
+    </div>
+    <div class="profile-row">
+      <span class="profile-label">Member since</span>
+      <span class="profile-value">{{ user.date_joined|date:"M d, Y" }}</span>
+    </div>
+  </div>
+
+  <div class="profile-actions">
+    <a class="btn" href="{% url 'profile_edit' %}">Edit profile</a>
+    <a class="btn btn-secondary" href="{% url 'dashboard' %}">Back to dashboard</a>
+  </div>
+
+</div>
+{% endblock %}

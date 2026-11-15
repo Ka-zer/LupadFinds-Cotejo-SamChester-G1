@@ -1,0 +1,115 @@
+
+/* ----- Profile Card ----- */
+.profile-card {
+  max-width: 620px;
+  margin: 1rem auto;
+  background: #fff;
+  border: 1px solid #c5d3ca;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+/* ----- Header with Avatar ----- */
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem 2rem;
+  background: linear-gradient(135deg, #0d3d28, #1e6b4a);
+  color: #fff;
+}
+
+.profile-header h2 {
+  margin: 0 0 0.3rem;
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+/* Profile Avatar */
+.profile-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #43b88a;
+  color: #0d3d28;
+  font-size: 1.8rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid rgba(255, 255, 255, 0.6);
+}
+
+/* Profile Role */
+.profile-role {
+  display: inline-block;
+  background: #43b88a;
+  color: #0d3d28;
+  padding: 2px 12px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+/* ----- Bordered Rows ----- */
+.profile-table {
+  margin: 1.5rem 2rem;
+  border: 1px solid #c5d3ca;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.profile-row {
+  display: flex;
+  border-bottom: 1px solid #c5d3ca;
+}
+
+.profile-row:last-child {
+  border-bottom: none;
+}
+
+/* Profile Label */
+.profile-label {
+  flex: 0 0 40%;
+  padding: 0.8rem 1rem;
+  background: #eef5f0;
+  border-right: 1px solid #c5d3ca;
+  font-weight: 600;
+  color: #3d5246;
+}
+
+/* Profile Value */
+.profile-value {
+  flex: 1;
+  padding: 0.8rem 1rem;
+  word-break: break-word;
+}
+
+/* ----- Buttons ----- */
+.profile-actions {
+  display: flex;
+  gap: 0.8rem;
+  padding: 0 2rem 2rem;
+}
+
+.profile-actions .btn {
+  flex: 1;
+  text-align: center;
+}
+
+/* ----- Responsive Design ----- */
+@media (max-width: 520px) {
+  .profile-row {
+    flex-direction: column;
+  }
+
+  .profile-label {
+    border-right: none;
+    border-bottom: 1px solid #c5d3ca;
+  }
+
+  .profile-actions {
+    flex-direction: column;
+  }
+}

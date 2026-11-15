@@ -1,31 +1,94 @@
+
 .welcome-banner {
   background: linear-gradient(135deg, #0d3d28, #1e6b4a);
-  color: #fff; padding: 2rem; border-radius: 12px; margin-bottom: 1.5rem;
+  color: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
 }
-.welcome-banner h2 { margin: 0 0 0.3rem; font-size: 1.8rem; }
-.welcome-banner p { margin: 0; color: #cfe8da; }
 
+.welcome-banner h2 {
+  margin: 0 0 0.3rem;
+  font-size: 1.8rem;
+}
+
+.welcome-banner p {
+  margin: 0;
+  color: #cfe8da;
+}
+
+/* Card Grid */
 .card-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem; margin-bottom: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
 }
+
+/* Statistics Card */
 .stat-card {
-  background: #fff; border-radius: 10px; padding: 1.2rem;
-  border-top: 4px solid var(--accent); box-shadow: 0 2px 8px rgba(0,0,0,.07);
+  background: #fff;
+  border-radius: 10px;
+  padding: 1.2rem;
+  border-top: 4px solid var(--accent);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
 }
-.stat-value { display: block; font-size: 1.6rem; font-weight: 700; color: var(--dark); }
-.stat-label { font-size: 0.85rem; color: var(--muted); }
 
+.stat-value {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--dark);
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* Panel */
 .panel {
-  background: #fff; border-radius: 10px; padding: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,.07);
+  background: #fff;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
 }
-.panel h3 { margin-top: 0; color: var(--dark); }
-.panel .btn { margin-right: 0.5rem; }
 
-.data-table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; }
-.data-table th, .data-table td { text-align: left; padding: 0.6rem; border-bottom: 1px solid #e1e9e3; }
-.data-table th { background: var(--dark); color: #fff; }
+.panel h3 {
+  margin-top: 0;
+  color: var(--dark);
+}
 
-.error-panel { text-align: center; max-width: 500px; margin: 3rem auto; }
-.error-panel h2 { color: #c0392b; }
+.panel .btn {
+  margin-right: 0.5rem;
+}
+
+/* Data Table */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+}
+
+.data-table th,
+.data-table td {
+  text-align: left;
+  padding: 0.6rem;
+  border-bottom: 1px solid #e1e9e3;
+}
+
+.data-table th {
+  background: var(--dark);
+  color: #fff;
+}
+
+/* Error Panel */
+.error-panel {
+  text-align: center;
+  max-width: 500px;
+  margin: 3rem auto;
+}
+
+.error-panel h2 {
+  color: #c0392b;
+}

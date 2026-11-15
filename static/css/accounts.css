@@ -61,6 +61,26 @@
   justify-content: center;
   align-items: center;
 }
-.auth-page .form-card { width: 100%; margin: 0; }
-.form-card h2 { text-align: center; }
-.form-card .btn { width: 100%; }
+.auth-page .form-card { 
+    width: 100%;
+    margin: 0; 
+}
+.form-card h2 { 
+    text-align: center; 
+}
+.form-card .btn { 
+    width: 100%; 
+}
+.form-actions {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 1.2rem;
+}
+.form-actions .btn {
+  flex: 1;
+  margin: 0;
+  text-align: center;
+}
+.form-card .btn-secondary {
+  margin-left: 0;
+}
