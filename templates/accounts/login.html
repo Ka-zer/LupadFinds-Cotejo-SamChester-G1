@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Log in | LupadFinds{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/accounts.css' %}">{% endblock %}
+
+{% block content %}
+<div class="form-card">
+  <h2>Log in</h2>
+  <form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+      <p>{{ field.label_tag }} {{ field }} {{ field.errors }}</p>
+    {% endfor %}
+    <input type="hidden" name="next" value="{{ next }}">
+    <button type="submit" class="btn">Log in</button>
+  </form>
+  <p class="form-footer">No account? <a href="{% url 'signup' %}">Sign up</a></p>
+</div>
+{% endblock %}
