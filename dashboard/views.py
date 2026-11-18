@@ -3,11 +3,12 @@ from django.urls import reverse
 from django.views.generic import RedirectView, TemplateView
 
 from accounts.models import CustomUser
+from items.models import ItemReport
 from .mixins import RoleRequiredMixin
 
 Role = CustomUser.Role
+LOST = ItemReport.ReportType.LOST
 
-# Which dashboard each role goes to
 ROLE_HOME = {
     Role.STUDENT: "student_dashboard",
     Role.STAFF: "staff_dashboard",
@@ -23,12 +24,24 @@ class DashboardRedirectView(LoginRequiredMixin, RedirectView):
         return reverse(ROLE_HOME[self.request.user.role])
 
 
-class StudentDashboardView(RoleRequiredMixin, TemplateView):
+class MemberDashboardView(RoleRequiredMixin, TemplateView):
+    """Shared by Student and Staff: shows the user's OWN lost reports."""
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        mine = ItemReport.objects.filter(user=self.request.user, report_type=LOST)
+        context["my_lost_count"] = mine.count()
+        context["my_open_count"] = mine.filter(status=ItemReport.Status.OPEN).count()
+        context["recent_reports"] = mine.select_related("category", "location")[:5]
+        return context
+
+
+class StudentDashboardView(MemberDashboardView):
     template_name = "dashboard/student.html"
     allowed_roles = [Role.STUDENT]
 
 
-class StaffDashboardView(RoleRequiredMixin, TemplateView):
+class StaffDashboardView(MemberDashboardView):
     template_name = "dashboard/staff.html"
     allowed_roles = [Role.STAFF]
 
@@ -40,8 +53,11 @@ class AdminDashboardView(RoleRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         users = CustomUser.objects
+        lost = ItemReport.objects.filter(report_type=LOST)
         context["total_users"] = users.count()
         context["student_count"] = users.filter(role=Role.STUDENT).count()
         context["staff_count"] = users.filter(role=Role.STAFF).count()
-        context["recent_users"] = users.order_by("-date_joined")[:5]
+        context["total_lost"] = lost.count()
+        context["open_lost"] = lost.filter(status=ItemReport.Status.OPEN).count()
+        context["recent_lost"] = lost.select_related("category", "location", "user")[:5]
         return context
