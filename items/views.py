@@ -1,47 +1,62 @@
-from django import forms
-from django.utils import timezone
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse
+from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 
+from accounts.models import CustomUser
+from .forms import LostReportForm
 from .models import ItemReport
 
+Role = CustomUser.Role
+LOST = ItemReport.ReportType.LOST
 
-class LostReportForm(forms.ModelForm):
-    class Meta:
-        model = ItemReport
-        fields = ("item_name", "category", "location", "item_date", "description")
-        labels = {
-            "item_name": "Item name",
-            "location": "Last known location",
-            "item_date": "Date lost",
-        }
-        widgets = {
-            "item_date": forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
-            "description": forms.Textarea(attrs={
-                "rows": 4,
-                "placeholder": "Color, brand, size, marks, contents..."}),
-        }
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields["category"].empty_label = "-- Select a category --"
-        self.fields["location"].empty_label = "-- Select a location --"
-        # The date picker can't go past today
-        self.fields["item_date"].widget.attrs["max"] = timezone.localdate().isoformat()
+class LostReportQuerysetMixin(LoginRequiredMixin):
+    """Admins see every lost report; other users only see their own."""
 
-    def clean_item_name(self):
-        name = self.cleaned_data["item_name"].strip()
-        if len(name) < 3:
-            raise forms.ValidationError("Item name must be at least 3 characters.")
-        return name
+    def get_queryset(self):
+        reports = ItemReport.objects.filter(report_type=LOST)
+        if self.request.user.role != Role.ADMIN:
+            reports = reports.filter(user=self.request.user)
+        return reports.select_related("category", "location", "user")
 
-    def clean_item_date(self):                       # BR-07
-        date = self.cleaned_data["item_date"]
-        if date > timezone.localdate():
-            raise forms.ValidationError("The date lost cannot be in the future.")
-        return date
 
-    def clean_description(self):                     # BR-06
-        text = self.cleaned_data["description"].strip()
-        if len(text) < 10:
-            raise forms.ValidationError(
-                "Please describe the item in at least 10 characters.")
-        return text
+class LostReportListView(LostReportQuerysetMixin, ListView):
+    template_name = "items/lost_list.html"
+    context_object_name = "reports"
+
+
+class LostReportDetailView(LostReportQuerysetMixin, DetailView):
+    template_name = "items/lost_detail.html"
+    context_object_name = "report"
+
+
+class LostReportCreateView(LoginRequiredMixin, CreateView):
+    model = ItemReport
+    form_class = LostReportForm
+    template_name = "items/lost_forms.html"
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        form.instance.report_type = LOST
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse("lost_detail", args=[self.object.pk])
+
+
+class LostReportUpdateView(LostReportQuerysetMixin, UpdateView):
+    model = ItemReport
+    form_class = LostReportForm
+    template_name = "items/lost_forms.html"
+
+    def get_success_url(self):
+        return reverse("lost_detail", args=[self.object.pk])
+
+
+class LostReportDeleteView(LostReportQuerysetMixin, DeleteView):
+    model = ItemReport
+    template_name = "items/lost_confirm_delete.html"
+    context_object_name = "report"
+
+    def get_success_url(self):
+        return reverse("lost_list")
