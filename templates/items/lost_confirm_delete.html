@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Delete Report | LupadFinds{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/items.css' %}">{% endblock %}
+
+{% block content %}
+<div class="detail-card confirm-card">
+  <h2>Delete this report?</h2>
+  <p>You are about to delete <strong>{{ report.item_name }}</strong>. This cannot be undone.</p>
+  <form method="post">
+    {% csrf_token %}
+    <div class="detail-actions">
+      <button type="submit" class="btn btn-danger">Yes, delete</button>
+      <a class="btn btn-secondary" href="{% url 'lost_detail' report.pk %}">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

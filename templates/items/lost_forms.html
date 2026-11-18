@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{% if object %}Edit{% else %}Report{% endif %} Lost Item | LupadFinds{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/accounts.css' %}?v=4">
+<link rel="stylesheet" href="{% static 'css/items.css' %}">{% endblock %}
+
+{% block content %}
+<div class="form-card form-card-wide">
+  <h2>{% if object %}Edit lost report{% else %}Report a lost item{% endif %}</h2>
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="form-actions">
+      <button type="submit" class="btn">{% if object %}Save changes{% else %}Submit report{% endif %}</button>
+      <a class="btn btn-secondary" href="{% url 'lost_list' %}">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

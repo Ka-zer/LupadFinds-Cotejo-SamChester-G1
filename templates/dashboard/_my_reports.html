@@ -1,0 +1,20 @@
+<div class="panel">
+  <h3>My recent lost reports</h3>
+  {% if recent_reports %}
+    <table class="data-table">
+      <tr><th>Item</th><th>Category</th><th>Date lost</th><th>Status</th></tr>
+      {% for r in recent_reports %}
+        <tr>
+          <td><a href="{% url 'lost_detail' r.pk %}">{{ r.item_name }}</a></td>
+          <td>{{ r.category.name }}</td>
+          <td>{{ r.item_date|date:"M d, Y" }}</td>
+          <td><span class="badge badge-{{ r.status|lower }}">{{ r.get_status_display }}</span></td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <p>You haven't reported anything yet.</p>
+  {% endif %}
+  <a class="btn" href="{% url 'lost_create' %}">+ Report lost item</a>
+  <a class="btn btn-secondary" href="{% url 'lost_list' %}">View all my reports</a>
+</div>
