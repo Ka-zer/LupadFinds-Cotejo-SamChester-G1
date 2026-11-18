@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Lost Reports | LupadFinds{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/items.css' %}">{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h2>{% if user.role == 'ADMIN' %}All lost reports{% else %}My lost reports{% endif %}</h2>
+  {% if user.role != 'ADMIN' %}
+    <a class="btn" href="{% url 'lost_create' %}">+ Report lost item</a>
+  {% endif %}
+</div>
+
+{% if reports %}
+<div class="table-wrap">
+  <table class="report-table">
+    <tr>
+      <th>Item</th><th>Category</th><th>Last known location</th>
+      <th>Date lost</th><th>Status</th>
+      {% if user.role == 'ADMIN' %}<th>Reported by</th>{% endif %}
+      <th>Actions</th>
+    </tr>
+    {% for r in reports %}
+    <tr>
+      <td><a href="{% url 'lost_detail' r.pk %}">{{ r.item_name }}</a></td>
+      <td>{{ r.category.name }}</td>
+      <td>{{ r.location.name }}</td>
+      <td>{{ r.item_date|date:"M d, Y" }}</td>
+      <td><span class="badge badge-{{ r.status|lower }}">{{ r.get_status_display }}</span></td>
+      {% if user.role == 'ADMIN' %}<td>{{ r.user.username }}</td>{% endif %}
+      <td class="row-actions">
+        <a href="{% url 'lost_update' r.pk %}">Edit</a>
+        <a class="danger" href="{% url 'lost_delete' r.pk %}">Delete</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+{% else %}
+<div class="empty-state">
+  <p>No lost reports yet.</p>
+  {% if user.role != 'ADMIN' %}
+    <a class="btn" href="{% url 'lost_create' %}">Report your first lost item</a>
+  {% endif %}
+</div>
+{% endif %}
+{% endblock %}

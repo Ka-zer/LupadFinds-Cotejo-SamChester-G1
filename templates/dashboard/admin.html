@@ -10,20 +10,31 @@
 </div>
 
 <div class="card-grid">
+  <div class="stat-card"><span class="stat-value">{{ total_lost }}</span><span class="stat-label">Lost reports</span></div>
+  <div class="stat-card"><span class="stat-value">{{ open_lost }}</span><span class="stat-label">Still open</span></div>
   <div class="stat-card"><span class="stat-value">{{ total_users }}</span><span class="stat-label">Total users</span></div>
-  <div class="stat-card"><span class="stat-value">{{ student_count }}</span><span class="stat-label">Students</span></div>
-  <div class="stat-card"><span class="stat-value">{{ staff_count }}</span><span class="stat-label">Staff</span></div>
-  <div class="stat-card"><span class="stat-value">0</span><span class="stat-label">Pending claims (coming soon)</span></div>
+  <div class="stat-card"><span class="stat-value">{{ student_count }} / {{ staff_count }}</span><span class="stat-label">Students / Staff</span></div>
 </div>
 
 <div class="panel">
-  <h3>Recently joined</h3>
-  <table class="data-table">
-    <tr><th>Username</th><th>Email</th><th>Role</th></tr>
-    {% for u in recent_users %}
-      <tr><td>{{ u.username }}</td><td>{{ u.email }}</td><td>{{ u.get_role_display }}</td></tr>
-    {% endfor %}
-  </table>
-  <a class="btn" href="{% url 'admin:index' %}">Manage users</a>
+  <h3>Recent lost reports</h3>
+  {% if recent_lost %}
+    <table class="data-table">
+      <tr><th>Item</th><th>Category</th><th>Reported by</th><th>Date lost</th><th>Status</th></tr>
+      {% for r in recent_lost %}
+        <tr>
+          <td><a href="{% url 'lost_detail' r.pk %}">{{ r.item_name }}</a></td>
+          <td>{{ r.category.name }}</td>
+          <td>{{ r.user.username }}</td>
+          <td>{{ r.item_date|date:"M d, Y" }}</td>
+          <td><span class="badge badge-{{ r.status|lower }}">{{ r.get_status_display }}</span></td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <p>No lost reports yet.</p>
+  {% endif %}
+  <a class="btn" href="{% url 'lost_list' %}">View all lost reports</a>
+  <a class="btn btn-secondary" href="{% url 'admin:index' %}">Manage users and categories</a>
 </div>
 {% endblock %}
